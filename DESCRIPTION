@@ -1,14 +1,14 @@
-Package: CIBERSORT
+Package: infiltR
 Type: Package
-Title: Cell-type Identification By Estimating Relative Subsets Of RNA Transcripts
+Title: Toolkit for evaluating infiltrating immune cells in tumor RNA-seq samples.
 Version: 0.1.0
 Authors@R: 
-  person(given = "Erjie", 
-         family = "Zhao", 
-         email = "2055469819@qq.com",
+  person(given = "Andrea", 
+         family = "Del Cortona", 
+         email = "andrea.delcortona@gmail.com",
          role = c("aut", "cre"))
-Maintainer: Erjie Zhao <2055469819@qq.com>
-Description: A package can do cibersort analysis.
+Maintainer: Andrea Del Cortona <andrea.delcortona@gmail.com>
+Description: Toolkit for evaluating infiltrating immune cells in tumor RNA-seq samples.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
