@@ -24,6 +24,10 @@
 #' @param sample_groups The columns of the metadata matrix to be used for the
 #'   comparisons between sample groups. E.g.: a column indicating which sample
 #'   was treated and which one not.
+#' @param my_palette A vector of color to be passed to the ggplot functions. If
+#'   provided by the user, it must be the same length of number of factors in
+#'   sample_groups.
+#'   Default: "default", it uses standard ggplot2 palette.
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
@@ -101,12 +105,15 @@
 #' rstatix
 #' ggpubr
 #' ggplot2
+#' scales
+#' quantiseqr
 #'
 #'
 infiltR <- function(
     counts_table,
     metadata,
     sample_groups,
+    my_palette = "default",
     save_plots = TRUE,
     outdir = "default",
     mcp_featuresType = "HUGO_symbols",
@@ -136,17 +143,44 @@ infiltR <- function(
     counts_table,
     metadata,
     sample_groups,
-    mcp_featuresType = "HUGO_symbols",
-    mcp_probesets = "default",
-    mcp_genes = "default"
+    mcp_featuresType,
+    mcp_probesets,
+    mcp_genes
   )
 
+  # run CIBERSORT
+  message("[", as.POSIXct(lubridate::now()), "] ... Run CIBERSORT")
+  infiltr_out = run_cibersort(
+    infiltr_out,
+    counts_table,
+    metadata,
+    sample_groups,
+    cb_perm = cb_perm,
+    cb_pval_thr = cb_pval_thr,
+    cb_QN = cb_QN
+  )
 
-
+  # run quanTIseq
+  message("[", as.POSIXct(lubridate::now()), "] ... Run quanTIseq")
+  infiltr_out = run_quantiseq(
+    infiltr_out,
+    counts_table,
+    metadata,
+    sample_groups,
+    qs_is_arraydata = qs_is_arraydata,
+    qs_is_tumordata = qs_is_tumordata,
+    qs_scale_mRNA = qs_scale_mRNA,
+    qs_method = qs_method,
+    qs_rm_genes = qs_rm_genes
+  )
 
   # print figures
+  message("[", as.POSIXct(lubridate::now()), "] ... Generate figures and report")
   plot_infiltR(
     infiltr_out,
+    metadata,
+    sample_groups,
+    my_palette,
     save_plots,
     outdir
   )
