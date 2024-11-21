@@ -107,9 +107,17 @@
 #' ggplot2
 #' scales
 #' quantiseqr
+#' preprocessCore
+#' e1071
+#' parallel
+#' doSNOW
+#' foreach
+#' stats
+#' utils
+#' BiocGenerics
 #'
 #'
-infiltR <- function(
+infiltR = function(
     counts_table,
     metadata,
     sample_groups,
@@ -119,7 +127,7 @@ infiltR <- function(
     mcp_featuresType = "HUGO_symbols",
     mcp_probesets = "default",
     mcp_genes = "default",
-    cb_perm = 100,
+    cb_perm = 500,
     cb_pval_thr = 0.1,
     cb_QN = FALSE,
     qs_is_arraydata = FALSE,

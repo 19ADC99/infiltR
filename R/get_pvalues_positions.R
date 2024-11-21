@@ -12,7 +12,7 @@
 #' @param long_matrix The long (melted) version of a cell adundance matrix, (e.g.:)
 #'   as obtained from CIBERSORT or MCP-counter
 #' @param ttest A t-test table obtained from rstatix::t_test
-get_pvalues_positions <- function(
+get_pvalues_positions = function(
     long_matrix,
     ttest
 ){
@@ -22,37 +22,91 @@ get_pvalues_positions <- function(
   my_x_min = c()
   my_x_max = c()
   my_annotation = c()
-  for(k in 1:nrow(ttest)){
 
-    if(k %% n_fact == 1){
+  # absolute VS cell-type p-values
+  if("cell_type" %in% colnames(ttest)){
 
-      my_group1 = as.character(ttest[k, "group1"])
-      my_group2 = as.character(ttest[k, "group2"])
-      my_cell_type = as.character(ttest[k, "cell_type"][[1]])
-      my_y_val = long_matrix %>%
-        dplyr::filter(cell_type == my_cell_type) %>%
-        dplyr::select(value) %>%
-        max() %>%
-        round()
-      my_y_val = my_y_val*1.4
+    for(k in 1:nrow(ttest)){
 
-    } else {
+      if(k %% n_fact == 1){
 
-      my_y_val = my_y_positions[length(my_y_positions)]*1.4
+        my_group1 = as.character(ttest[k, "group1"])
+        my_group2 = as.character(ttest[k, "group2"])
+        my_cell_type = as.character(ttest[k, "cell_type"][[1]])
+
+        # check if absolute or relative cell abundance
+        if(max(long_matrix$value) <= 1){
+
+          my_y_val = long_matrix %>%
+            dplyr::filter(cell_type == my_cell_type) %>%
+            dplyr::select(value) %>%
+            max()
+          my_y_val = my_y_val + 0.025
+
+        } else {
+
+          my_y_val = long_matrix %>%
+            dplyr::filter(cell_type == my_cell_type) %>%
+            dplyr::select(value) %>%
+            max() %>%
+            round()
+          my_y_val = my_y_val*1.4
+
+        }
+
+      } else {
+
+        # check if absolute or relative cell abundance
+        if(max(long_matrix$value) <= 1){
+          my_y_val = my_y_positions[length(my_y_positions)] + 0.025
+        } else {
+          my_y_val = my_y_positions[length(my_y_positions)]*1.4
+        }
+
+      }
+
+      my_y_positions = c(my_y_positions, my_y_val)
+      my_x_min = c(my_x_min, as.numeric(ttest[k, "xmin"]))
+      my_x_max = c(my_x_max, as.numeric(ttest[k, "xmax"]))
+
+      if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
+        my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
+      } else {
+        my_annotation = c(my_annotation, "")
+      }
 
     }
 
-    my_y_positions = c(my_y_positions, my_y_val)
-    my_x_min = c(my_x_min, as.numeric(ttest[k, "xmin"]))
-    my_x_max = c(my_x_max, as.numeric(ttest[k, "xmax"]))
+  } else {
 
-    if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
-      my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
-    } else {
-      my_annotation = c(my_annotation, "")
+    for(k in 1:nrow(ttest)){
+
+      if(k == 1){
+
+        my_y_val = long_matrix %>%
+          max() %>%
+          round()
+        my_y_val = my_y_val*1.4
+
+      } else {
+
+        my_y_val = my_y_positions[length(my_y_positions)]*1.4
+
+      }
+
+      my_y_positions = c(my_y_positions, my_y_val)
+      my_x_min = c(my_x_min, as.numeric(ttest[k, "xmin"]))
+      my_x_max = c(my_x_max, as.numeric(ttest[k, "xmax"]))
+      if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
+        my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
+      } else {
+        my_annotation = c(my_annotation, "")
+      }
+
     }
 
   }
+
 
   return(
     list(

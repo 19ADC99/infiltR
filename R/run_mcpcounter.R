@@ -25,7 +25,7 @@
 #'   The gene set that indicates the genes of the immune infiltrating cells
 #'   Default: "default", which retrieves the original MCP-counter repo with
 #'   \code{read.table(curl:::curl("https://raw.githubusercontent.com/ebecht/MCPcounter/master/Signatures/genes.txt"),sep="\t",stringsAsFactors=FALSE,header=TRUE,colClasses="character",check.names=FALSE}
-run_mcpcounter <- function(
+run_mcpcounter = function(
     infiltr_out,
     counts_table,
     metadata,
@@ -40,7 +40,7 @@ run_mcpcounter <- function(
   if(length(mcp_probesets) == 1){
     if(mcp_probesets == "default"){
       mcp_probesets = read.table(
-        curl:::curl("https://raw.githubusercontent.com/19AD99/infiltR/master/data/mcp_probesets.txt"),
+        curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/data/mcp_probesets.txt"),
         sep = "\t",
         stringsAsFactors = FALSE,
         colClasses = "character"
@@ -51,7 +51,7 @@ run_mcpcounter <- function(
   if(length(mcp_genes) == 1){
     if(mcp_genes == "default"){
       mcp_genes = read.table(
-        curl:::curl("https://raw.githubusercontent.com/19AD99/infiltR/master/data/mcp_genes.txt"),
+        curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/data/mcp_genes.txt"),
         sep = "\t",
         stringsAsFactors = FALSE,
         header = TRUE,
@@ -71,12 +71,13 @@ run_mcpcounter <- function(
     as.data.frame()
 
 
-  # # normalized infiltrating
-  # infiltr_out[["mcp_counter_norm"]] = infiltr_out[["mcp_counter"]] %>%
-  #   dplyr::mutate(all_infiltrating = rowSums(.)) %>%
-  #   dplyr::mutate_all(~ ./all_infiltrating) %>%
-  #   dplyr::select(-all_infiltrating)
-  # infiltr_out[["mcp_counter_norm"]]$group = metadata[[sample_groups]]
+  # normalized infiltrating
+  infiltr_out[["mcp_counter_norm"]] = infiltr_out[["mcp_counter"]] %>%
+    dplyr::mutate(all_infiltrating = rowSums(.)) %>%
+    dplyr::mutate_all(~ ./all_infiltrating) %>%
+    round(digits = 4) %>%
+    dplyr::select(-all_infiltrating)
+  infiltr_out[["mcp_counter_norm"]]$group = metadata[[sample_groups]]
 
   # total infiltrating
   infiltr_out[["mcp_counter"]] = infiltr_out[["mcp_counter"]] %>%
