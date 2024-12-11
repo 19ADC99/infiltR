@@ -144,7 +144,7 @@ plot_infiltR = function(
   #### quanTIseq ####
 
   mcp_relative_infil = plot_tables[["mcp_relative_infil"]]
-  cb_sign = plot_tables[["cb_sign"]]
+  cb_all = plot_tables[["cb_all"]]
   quantiseq = plot_tables[["quantiseq"]]
 
   mcp_relative_infil$model = "MCP-counter"
@@ -163,7 +163,9 @@ plot_infiltR = function(
   # p_all_relatives = p_all_relatives %>% rstatix::add_xy_position(x = "cell_type")
 
   p_all = ggplot(all_relatives, aes(x = cell_type, y = value, fill = group)) +
-    geom_boxplot(outlier.shape = 1, outlier.size = 0.5, alpha = 0.8) +
+    geom_violin(alpha = 0.5, scale = "width", trim = TRUE) +
+    stat_summary(fun = "median", colour = "red", geom = "crossbar", size = 0.15,
+                 position = position_dodge(0.9), width = 0.5) +
     scale_fill_manual(values = my_palette) +
     scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = 10)) +
     labs(x = "", y = "cell fractions", title = "Relative quantification") +
@@ -178,7 +180,7 @@ plot_infiltR = function(
 
 
   # plot composite output figure
-  cowplot::plot_grid(
+  p_infiltr = cowplot::plot_grid(
     cowplot::plot_grid(
       p_mcp_abs_all, p_mcp_abs_cells,
       nrow = 1,
@@ -193,11 +195,11 @@ plot_infiltR = function(
   )
 
 
+  p_infiltr
 
   ##### TODO: add p-values for relative quantifications
   ##### TODO: add option to save figure png and pdf
   ##### TODO: return ggplot objects??
-
 
 
 }

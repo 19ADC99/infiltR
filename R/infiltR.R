@@ -129,7 +129,7 @@
 # "ggpubr"
 
 # up_packages = c(
-#   "BiocGenerics", "cowplot", "dplyr", "doSNOW", "e1071", "foreach", "ggplot2", "lubridate",
+#   "BiocGenerics", "cowplot", "dplyr", "doSNOW", "e1071", "foreach", "ggplot2", "ggpmisc", "lubridate",
 #   "MCPcounter", "parallel", "preprocessCore", "quantiseqr", "rlang", "rstatix", "scales", "stats", "stringr", "utils"
 # )
 # lapply(up_packages, require, character.only = TRUE)
@@ -205,58 +205,25 @@ infiltR = function(
   )
 
   # print QC report
-  message("[", as.POSIXct(lubridate::now()), "] ... Generate CIBERSORT QC")
+  message("[", as.POSIXct(lubridate::now()), "] ... Generate CIBERSORT QC figures")
   plot_cb_qc(
     infiltr_out,
-    metadata,
-    sample_groups,
-    my_palette,
     save_plots,
     outdir
   )
 
   # print estimates comparisons
-  message("[", as.POSIXct(lubridate::now()), "] ... Generate comparisons")
+  message("[", as.POSIXct(lubridate::now()), "] ... Generate comparisons figures")
+  plot_comparisons(
+    infiltr_out,
+    save_plots,
+    outdir
+  )
 
 
 
 
 
-
-  # add all CB param
-  ## p-val threshold
-  # add all infiltrese params
-  # add all mcp params
-
-  # check if install
-
-
-  # run mcp
-  ## group by celltype lineage
-  ## check total infiltratioin between factors
-  ## check absolute infiltrating factors
-  ## check relative infiltration between factors
-  ## stats comparison between input factors
-
-
-  # run CB
-  ## group by celltype lineage
-  ## overview all samples
-  ## overview only samples with p-value < 0.1 (optional)
-  ## stats comparison between input factors
-
-  # run quantiseq
-  ## group by celltype lineage
-  ## stats comparison between input factors
-
-
-  # generate report
-
-  # merge the three methods [QC]
-  ## group the cell types so that we can compare them
-  ## CB vs 2
-  ## CB vs MCP
-  ## MCP vs 2
-
+  ### TODO: check if install
 
 }

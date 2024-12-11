@@ -44,7 +44,9 @@ get_boxplots = function(
 
   # general plot
   my_plot = ggplot(long_matrix, aes(x = .data[[my_x]], y = .data[[my_y]], fill = .data[[my_fill]])) +
-    geom_boxplot(outlier.shape = 1, outlier.size = 0.5) +
+    geom_violin(alpha = 0.5, scale = "width", trim = TRUE) +
+    stat_summary(fun = "median", colour = "red", geom = "crossbar", size = 0.15,
+                 position = position_dodge(0.9), width = 0.5) +
     scale_fill_manual(values = my_palette) +
     xlab("") +
     theme_bw() +

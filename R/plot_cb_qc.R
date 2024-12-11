@@ -5,38 +5,15 @@
 #' @note 2024-12-09
 #'
 #' @param infiltr_out infiltr_out output object
-#' @param sample_groups The columns of the metadata matrix to be used for the
-#'   comparisons between sample groups. E.g.: a column indicating which sample
-#'   was treated and which one not.
-#' @param my_palette A vector of color to be passed to the ggplot functions. If
-#'   provided by the user, it must be the same length of number of factors in
-#'   sample_groups.
-#'   Default: "default", it uses standard ggplot2 palette.
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
 #'   Default: "default", it prints in the current working directory
 plot_cb_qc = function(
     infiltr_out,
-    my_palette,
     save_plots = TRUE,
     outdir = "default"
 ){
-
-  #### General ####
-
-  # get number of metadata groups
-  n_fact = metadata[[sample_groups]] %>%
-    as.factor() %>%
-    levels() %>%
-    length()
-
-  # check my palette
-  if(length(my_palette) == 1){
-    if(my_palette == "default"){
-      my_palette = scales::hue_pal()(n_fact)
-    }
-  }
 
   # prep dataframes for printing figures
   message("[", as.POSIXct(lubridate::now()), "] ... Prepping dataframes for figures and report")
@@ -55,8 +32,6 @@ plot_cb_qc = function(
   quantiseq$model = "quanTIseq"
 
 
-  #### CIBERSORT QC ####
-
   # CIBERSORT p-values distributions
   pp_value = ggplot(infiltr_out[["cb_all"]], aes(x = `P-value`)) +
     geom_histogram(aes(y = after_stat(density)), colour = "black", fill = "white", bins = 100) +
@@ -65,6 +40,7 @@ plot_cb_qc = function(
     labs("CIBERSORT p-values distribution") +
     theme_bw() +
     theme(panel.grid.minor = element_blank())
+
 
   # CIBERSORT samples number before and after filtering
   cb_counts = cbind(
@@ -98,8 +74,10 @@ plot_cb_qc = function(
   # CIBERSORT all VS filtered
   cb_combined = rbind(cb_all, cb_sign)
 
-  cb_qll_vs_sign = ggplot(cb_combined, aes(x = cell_type, y = value, fill = model)) +
-    geom_boxplot(outlier.shape = 1, outlier.size = 0.5) +
+  cb_all_vs_sign = ggplot(cb_combined, aes(x = cell_type, y = value, fill = model)) +
+    geom_violin(alpha = 0.5, scale = "width", trim = TRUE) +
+    stat_summary(fun = "median", colour = "red", geom = "crossbar", size = 0.15,
+                 position = position_dodge(0.9), width = 0.5) +
     facet_wrap(~ group, nrow = 3, strip.position = "right") +
     scale_fill_manual(values = c("grey75", "orange")) +
     scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = 10)) +
@@ -121,40 +99,11 @@ plot_cb_qc = function(
       align = "h",
       rel_widths = c(0.5, 0.5)
     ),
-    #pp_value,
-    cb_qll_vs_sign,
+    cb_all_vs_sign,
     nrow = 2,
     rel_heights = c(2, 5)
   )
 
-
-
-
-
-
-
-
-
-
-
-  #### CIBERSORT QC ####
-
-
-  quantiseq = infiltr_out[["quantiseq"]]
-
-  # transfor and plot per cell abundances
-  quantiseq$Sample = rownames(quantiseq)
-  quantiseq$group = metadata[[sample_groups]]
-  quantiseq = data.table::melt(quantiseq)
-  colnames(quantiseq) = c("Sample", "group", "cell_type", "value")
-
-  quantiseq$cell_type = factor(
-    quantiseq$cell_type,
-    levels = c(
-      "B.cells", "Macrophages.M1", "Macrophages.M2", "Monocytes", "Neutrophils",
-      "NK.cells", "T.cells.CD4", "T.cells.CD8", "Tregs", "Dendritic.cells", "Other"
-    )
-  )
-
+  cb_composite
 
 }
