@@ -117,6 +117,40 @@
 #' BiocGenerics
 #'
 #'
+#'
+#'
+
+
+
+
+
+
+# NOT SURE ANYMORE:
+# "ggpubr"
+
+# up_packages = c(
+#   "BiocGenerics", "cowplot", "dplyr", "doSNOW", "e1071", "foreach", "ggplot2", "lubridate",
+#   "MCPcounter", "parallel", "preprocessCore", "quantiseqr", "rlang", "rstatix", "scales", "stats", "stringr", "utils"
+# )
+# lapply(up_packages, require, character.only = TRUE)
+# metadata = read.delim("../cancer_code/data/TCGA_PanCan_metadata.kidney.tsv", header = TRUE, sep = "\t")
+# counts_table = read.delim("../cancer_code/data/TCGA_PanCan_data.RNAseq.kidney.fltr.tsv",header = TRUE,sep = "\t",check.names = FALSE)
+# sample_groups="gdc_cases.project.project_id_1_1"
+# my_palette =c("hotpink4", "#F768A1", "grey65")
+# save_plots=TRUE
+# outdir="default"
+# mcp_featuresType="HUGO_symbols"
+# mcp_probesets="default"
+# mcp_genes="default"
+# cb_perm=500
+# cb_pval_thr=0.1
+# cb_QN=FALSE
+# qs_is_arraydata=FALSE
+# qs_is_tumordata=TRUE
+# qs_scale_mRNA=TRUE
+# qs_method="lsei"
+# qs_rm_genes="default"
+
 infiltR = function(
     counts_table,
     metadata,
@@ -141,40 +175,17 @@ infiltR = function(
   t0 = lubridate::now()
   message("[", as.POSIXct(lubridate::now()), "] ... Start infiltR!")
 
-  # declare output obj
-  infiltr_out = list()
-
-  # run MCP-counter
-  message("[", as.POSIXct(lubridate::now()), "] ... Run MCP-counter")
-  infiltr_out = run_mcpcounter(
-    infiltr_out,
+  # run estimates
+  infiltr_out = run_estimates(
     counts_table,
     metadata,
     sample_groups,
     mcp_featuresType,
     mcp_probesets,
-    mcp_genes
-  )
-
-  # run CIBERSORT
-  message("[", as.POSIXct(lubridate::now()), "] ... Run CIBERSORT")
-  infiltr_out = run_cibersort(
-    infiltr_out,
-    counts_table,
-    metadata,
-    sample_groups,
+    mcp_genes,
     cb_perm = cb_perm,
     cb_pval_thr = cb_pval_thr,
-    cb_QN = cb_QN
-  )
-
-  # run quanTIseq
-  message("[", as.POSIXct(lubridate::now()), "] ... Run quanTIseq")
-  infiltr_out = run_quantiseq(
-    infiltr_out,
-    counts_table,
-    metadata,
-    sample_groups,
+    cb_QN = cb_QN,
     qs_is_arraydata = qs_is_arraydata,
     qs_is_tumordata = qs_is_tumordata,
     qs_scale_mRNA = qs_scale_mRNA,
@@ -182,8 +193,8 @@ infiltR = function(
     qs_rm_genes = qs_rm_genes
   )
 
-  # print figures
-  message("[", as.POSIXct(lubridate::now()), "] ... Generate figures and report")
+  # print infiltration
+  message("[", as.POSIXct(lubridate::now()), "] ... Generate figures")
   plot_infiltR(
     infiltr_out,
     metadata,
@@ -192,6 +203,23 @@ infiltR = function(
     save_plots,
     outdir
   )
+
+  # print QC report
+  message("[", as.POSIXct(lubridate::now()), "] ... Generate CIBERSORT QC")
+  plot_cb_qc(
+    infiltr_out,
+    metadata,
+    sample_groups,
+    my_palette,
+    save_plots,
+    outdir
+  )
+
+  # print estimates comparisons
+  message("[", as.POSIXct(lubridate::now()), "] ... Generate comparisons")
+
+
+
 
 
 

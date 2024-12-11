@@ -75,7 +75,6 @@ run_mcpcounter = function(
   infiltr_out[["mcp_counter_norm"]] = infiltr_out[["mcp_counter"]] %>%
     dplyr::mutate(all_infiltrating = rowSums(.)) %>%
     dplyr::mutate_all(~ ./all_infiltrating) %>%
-    round(digits = 4) %>%
     dplyr::select(-all_infiltrating)
   infiltr_out[["mcp_counter_norm"]]$group = metadata[[sample_groups]]
 

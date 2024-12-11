@@ -34,9 +34,8 @@ get_cb_perm = function(
 
     # get random expression
     random_expr = sample(gene_expr_values, nrow(cb_LM22))
-    # random_expr_scaled = (random_expr - mean(random_expr)) / stats::sd(random_expr)
-    # cb_estimates = cb_svm(random_expr_scaled, cb_LM22)
-    cb_estimates = cb_svm(random_expr, cb_LM22)
+    random_expr_scaled = (random_expr - mean(random_expr)) / stats::sd(random_expr)
+    cb_estimates = cb_svm(random_expr_scaled, cb_LM22)
     distance[k] = as.numeric(cb_estimates$bm_r)
 
   }

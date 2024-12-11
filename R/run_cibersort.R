@@ -70,17 +70,7 @@ run_cibersort = function(
 
 
   # standardize LM22 matrix
-
-  ##########
-  ##########
-  ##########
-  ##########
-  ##########
-  ##########
-  ##########
-  ##########
-  ########## MUST DOUBLE CHECK IF SCALING IS NECESSARY
-  #cb_LM22 = (as.matrix(cb_LM22) - mean(as.matrix(cb_LM22))) / stats::sd(as.matrix(cb_LM22))
+  cb_LM22 = (as.matrix(cb_LM22) - mean(as.matrix(cb_LM22))) / stats::sd(as.matrix(cb_LM22))
 
   # empirical null distribution of correlation coefficients
   message("[", as.POSIXct(lubridate::now()), "] ....... estimate empirical null distribution with permutations")
