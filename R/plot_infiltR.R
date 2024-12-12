@@ -202,7 +202,7 @@ plot_infiltR = function(
   )
 
 
-  p_infiltr
+  plot(p_infiltr)
 
   ##### TODO: add p-values for relative quantifications
   ##### TODO: add option to save figure png and pdf

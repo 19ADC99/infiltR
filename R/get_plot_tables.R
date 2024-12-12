@@ -23,7 +23,6 @@ get_plot_tables = function(
   # declare output obj
   plot_tables = list()
 
-  print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
   #### MCP-counter ####
 
@@ -93,9 +92,6 @@ get_plot_tables = function(
   )
 
   cb_sign = infiltr_out[["cb_sign"]]
-
-
-  print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
 
 
   # transfor and plot per cell abundances

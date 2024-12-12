@@ -117,6 +117,6 @@ plot_cb_qc = function(
     rel_heights = c(2, 5)
   )
 
-  cb_composite
+  plot(cb_composite)
 
 }
