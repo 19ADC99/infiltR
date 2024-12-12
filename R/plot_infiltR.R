@@ -34,7 +34,7 @@ plot_infiltR = function(
   #### General ####
 
   # get number of metadata groups
-  n_fact = metadata[[sample_groups]] %>%
+  n_fact = metadatametadata[, sample_groups] %>%
       as.factor() %>%
       levels() %>%
       length()
@@ -194,7 +194,6 @@ plot_infiltR = function(
       align = "h",
       rel_widths = c(0.3, 0.65)
     ),
-    #pp_value,
     p_all,
     nrow = 2,
     align = "v",
