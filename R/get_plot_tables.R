@@ -23,7 +23,7 @@ get_plot_tables = function(
   # declare output obj
   plot_tables = list()
 
-
+  print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
 
   #### MCP-counter ####
 
@@ -31,7 +31,7 @@ get_plot_tables = function(
 
   # transfor and plot per cell abundances
   mcp_absolute_infil$Sample = rownames(mcp_absolute_infil)
-  mcp_absolute_infil$group = metadata[[sample_groups]]
+  mcp_absolute_infil$group = metadata[, sample_groups]
   mcp_absolute_infil = mcp_absolute_infil %>%
     dplyr::select(-c("all_infiltrating"))
   mcp_absolute_infil = data.table::melt(mcp_absolute_infil)
@@ -49,7 +49,7 @@ get_plot_tables = function(
   # transfor and plot per relative cell abundances
   mcp_relative_infil = infiltr_out[["mcp_counter_norm"]]
   mcp_relative_infil$Sample = rownames(mcp_relative_infil)
-  mcp_relative_infil$group = metadata[[sample_groups]]
+  mcp_relative_infil$group = metadata[, sample_groups]
   mcp_relative_infil = data.table::melt(mcp_relative_infil)
   mcp_relative_infil$value = mcp_relative_infil$value %>%
     as.numeric() %>%
@@ -73,7 +73,7 @@ get_plot_tables = function(
 
   # transfor and plot per cell abundances
   cb_all$Sample = rownames(cb_all)
-  cb_all$group = metadata[[sample_groups]]
+  cb_all$group = metadata[, sample_groups]
   cb_all = cb_all %>%
     dplyr::select(-c("P-value", "Correlation", "RMSE"))
   cb_all = data.table::melt(cb_all)
@@ -93,6 +93,10 @@ get_plot_tables = function(
   )
 
   cb_sign = infiltr_out[["cb_sign"]]
+
+
+  print("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+
 
   # transfor and plot per cell abundances
   cb_sign$Sample = rownames(cb_sign)
@@ -126,7 +130,7 @@ get_plot_tables = function(
 
   # transfor and plot per cell abundances
   quantiseq$Sample = rownames(quantiseq)
-  quantiseq$group = metadata[[sample_groups]]
+  quantiseq$group = metadata[, sample_groups]
   quantiseq = data.table::melt(quantiseq)
   colnames(quantiseq) = c("Sample", "group", "cell_type", "value")
 
