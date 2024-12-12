@@ -14,10 +14,12 @@
 #' @param long_matrix The long (melted) version of a cell adundance matrix, (e.g.:)
 #'   as obtained from CIBERSORT or MCP-counter
 #' @param ttest A t-test table obtained from rstatix::t_test
+#' @param nfact number of distinct groups
 #' @export
 get_pvalues_positions = function(
     long_matrix,
-    ttest
+    ttest,
+    n_fact
 ){
 
   # get sign and positions

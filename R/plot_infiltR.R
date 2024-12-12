@@ -64,7 +64,7 @@ plot_infiltR = function(
     rstatix::t_test(all_infiltrating ~ group)
   tests_abs = tests_abs %>% rstatix::add_xy_position()
 
-  my_pvalues = get_pvalues_positions(mcp_absolute_infil$all_infiltrating, tests_abs)
+  my_pvalues = get_pvalues_positions(mcp_absolute_infil$all_infiltrating, tests_abs, n_fact)
 
   p_mcp_abs_all = get_boxplots(
     mcp_absolute_infil,
@@ -94,7 +94,7 @@ plot_infiltR = function(
     rstatix::t_test(value ~ group)
   tests_abscell = tests_abscell %>% rstatix::add_xy_position(x = "cell_type")
 
-  my_pvalues = get_pvalues_positions(mcp_absolute_infil, tests_abscell)
+  my_pvalues = get_pvalues_positions(mcp_absolute_infil, tests_abscell, n_fact)
 
   p_mcp_abs_cells = get_boxplots(
     mcp_absolute_infil,
