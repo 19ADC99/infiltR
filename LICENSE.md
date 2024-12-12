@@ -1,6 +1,6 @@
 GNU Affero General Public License
 =================================
-
+ 
 _Version 3, 19 November 2007_
 _Copyright (C) 2007 Free Software Foundation, Inc. &lt;<https://fsf.org/>&gt;_
 
