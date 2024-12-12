@@ -16,6 +16,7 @@
 #' @export
 get_plot_tables = function(
     infiltr_out,
+    metadata,
     sample_groups
 ){
 

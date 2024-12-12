@@ -12,6 +12,7 @@
 #' @param sample_groups The columns of the metadata matrix to be used for the
 #'   comparisons between sample groups. E.g.: a column indicating which sample
 #'   was treated and which one not.
+#' @param metadata A metadata matrix with samples as rows
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
@@ -19,6 +20,7 @@
 #' @export
 plot_cb_qc = function(
     infiltr_out,
+    metadata,
     sample_groups,
     save_plots = TRUE,
     outdir = "default"
@@ -28,6 +30,7 @@ plot_cb_qc = function(
   message("[", as.POSIXct(lubridate::now()), "] ... Prepping dataframes for figures and report")
   plot_tables = get_plot_tables(
     infiltr_out,
+    metadata,
     sample_groups
   )
 

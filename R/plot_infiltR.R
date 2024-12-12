@@ -50,6 +50,7 @@ plot_infiltR = function(
   message("[", as.POSIXct(lubridate::now()), "] ... Prepping dataframes for figures and report")
   plot_tables = get_plot_tables(
     infiltr_out,
+    metadata,
     sample_groups
   )
 
