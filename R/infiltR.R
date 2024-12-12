@@ -144,6 +144,7 @@ infiltR = function(
   message("[", as.POSIXct(lubridate::now()), "] ... Generate CIBERSORT QC figures")
   plot_cb_qc(
     infiltr_out,
+    sample_groups,
     save_plots,
     outdir
   )

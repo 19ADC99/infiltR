@@ -13,17 +13,10 @@
 #' @param sample_groups The columns of the metadata matrix to be used for the
 #'   comparisons between sample groups. E.g.: a column indicating which sample
 #'   was treated and which one not.
-#' @param my_palette A vector of color to be passed to the ggplot functions. If
-#'   provided by the user, it must be the same length of number of factors in
-#'   sample_groups.
-#'   Default: "default", it uses standard ggplot2 palette.
-#' @param save_plots save plots in pdf and png format
-#'   Default: TRUE
-#' @param outdir Output directory of the plots
-#'   Default: "default", it prints in the current working directory
 #' @export
 get_plot_tables = function(
-    infiltr_out
+    infiltr_out,
+    sample_groups
 ){
 
   # declare output obj

@@ -9,6 +9,9 @@
 #' This function plots QC statistics for CIBERSORT.
 #'
 #' @param infiltr_out infiltr_out output object
+#' @param sample_groups The columns of the metadata matrix to be used for the
+#'   comparisons between sample groups. E.g.: a column indicating which sample
+#'   was treated and which one not.
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
@@ -16,6 +19,7 @@
 #' @export
 plot_cb_qc = function(
     infiltr_out,
+    sample_groups,
     save_plots = TRUE,
     outdir = "default"
 ){
@@ -23,7 +27,8 @@ plot_cb_qc = function(
   # prep dataframes for printing figures
   message("[", as.POSIXct(lubridate::now()), "] ... Prepping dataframes for figures and report")
   plot_tables = get_plot_tables(
-    infiltr_out
+    infiltr_out,
+    sample_groups
   )
 
   mcp_relative_infil = plot_tables[["mcp_relative_infil"]]
