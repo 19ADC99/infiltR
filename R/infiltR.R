@@ -3,6 +3,8 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for infiltR, a tool for tumor microenvironmnet characterization
 #' @note 2024-11-13
+#' @title infiltR
+#' @details
 #'
 #' InfiltR characterize the tumor microenvironment by evaluating the amount of
 #' infiltrating immune cells of RNA-seq samples of solid tumor biopsies.
@@ -77,80 +79,14 @@
 #'     "default" (a list of genes with noisy expression RNA-seq data is removed,
 #'     as explained in the quanTIseq paper).
 #'   Default: "default" for RNA-seq data, "none" for microarrays.
-#'
-#'
-#' @import utils
-#' @importFrom preprocessCore normalize.quantiles
-#' @importFrom stats sd
 #' @export
-#' @examples
-#' \dontrun{
-#'   ## example 1
-#'   sig_matrix <- system.file("extdata", "LM22.txt", package = "CIBERSORT")
-#'   mixture_file <- system.file("extdata", "exampleForLUAD.txt", package = "CIBERSORT")
-#'   results <- cibersort(sig_matrix, mixture_file)
-#'   ## example 2
-#'   data(LM22)
-#'   data(mixed_expr)
-#'   results <- cibersort(sig_matrix = LM22, mixture_file = mixed_expr)
-#' }
 #'
-#'
-#'
-#'
-#' requires
-#' lubridate
-#' dplyr
-#' MCPcounter
-#' rstatix
-#' ggpubr
-#' ggplot2
-#' scales
-#' quantiseqr
-#' preprocessCore
-#' e1071
-#' parallel
-#' doSNOW
-#' foreach
-#' stats
-#' utils
-#' BiocGenerics
-#'
-#'
-#'
-#'
-
-
-
-
-
-
-# NOT SURE ANYMORE:
-# "ggpubr"
-
+#
 # up_packages = c(
 #   "BiocGenerics", "cowplot", "dplyr", "doSNOW", "e1071", "foreach", "ggplot2", "ggpmisc", "lubridate",
 #   "MCPcounter", "parallel", "preprocessCore", "quantiseqr", "rlang", "rstatix", "scales", "stats", "stringr", "utils"
 # )
 # lapply(up_packages, require, character.only = TRUE)
-# metadata = read.delim("../cancer_code/data/TCGA_PanCan_metadata.kidney.tsv", header = TRUE, sep = "\t")
-# counts_table = read.delim("../cancer_code/data/TCGA_PanCan_data.RNAseq.kidney.fltr.tsv",header = TRUE,sep = "\t",check.names = FALSE)
-# sample_groups="gdc_cases.project.project_id_1_1"
-# my_palette =c("hotpink4", "#F768A1", "grey65")
-# save_plots=TRUE
-# outdir="default"
-# mcp_featuresType="HUGO_symbols"
-# mcp_probesets="default"
-# mcp_genes="default"
-# cb_perm=500
-# cb_pval_thr=0.1
-# cb_QN=FALSE
-# qs_is_arraydata=FALSE
-# qs_is_tumordata=TRUE
-# qs_scale_mRNA=TRUE
-# qs_method="lsei"
-# qs_rm_genes="default"
-
 infiltR = function(
     counts_table,
     metadata,
@@ -221,9 +157,14 @@ infiltR = function(
   )
 
 
-
-
-
   ### TODO: check if install
+  ### TODO: add proper README and usage
+  ### TODO: build package
+  ### TODO: dependencies
+  ### TODO: check function descriptions
+  ### TODO: export function
+  ### TODO: clean-up legacy code
+  ### TODO: test / mock dataset
+
 
 }

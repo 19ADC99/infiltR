@@ -3,6 +3,10 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note run nu-SVM
 #' @note 2024-11-19
+#' @title cb_svm
+#' @details
+#'
+#' Core Support Vector Machine algorithm of CIBERSORT.
 #'
 #' @param sample A column of the RNAseq counts table, with genes as rows and samples as
 #'   columns. The count table is expected to be already preprocessed (i.e.: lowly
@@ -12,6 +16,7 @@
 #'   LM22 siganture matrix.
 #'
 #' run CIBERSORT nu SVM
+#' @export
 cb_svm = function(
     sample,
     cb_LM22

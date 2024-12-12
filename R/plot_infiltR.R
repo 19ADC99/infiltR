@@ -3,6 +3,10 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for plotting infiltR summary figures
 #' @note 2024-11-13
+#' @title plot_infiltR
+#' @details
+#'
+#' This function plots infiltR estimates.
 #'
 #' @param infiltr_out infiltr_out output object
 #' @param metadata A metadata matrix with samples as rows
@@ -17,6 +21,7 @@
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
 #'   Default: "default", it prints in the current working directory
+#' @export
 plot_infiltR = function(
     infiltr_out,
     metadata,

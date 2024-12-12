@@ -3,12 +3,17 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note print CIBERSORT QC
 #' @note 2024-12-09
+#' @title plot_cb_qc
+#' @details
+#'
+#' This function plots QC statistics for CIBERSORT.
 #'
 #' @param infiltr_out infiltr_out output object
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
 #'   Default: "default", it prints in the current working directory
+#' @export
 plot_cb_qc = function(
     infiltr_out,
     save_plots = TRUE,

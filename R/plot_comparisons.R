@@ -3,12 +3,18 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note plot estimates comparisons
 #' @note 2024-12-09
+#' @title plot_comparisons
+#' @details
+#'
+#' This function plots comparisons of infiltrating immune cells estimated with
+#' MCP-counter, CIBERSORT and aunTIseq
 #'
 #' @param infiltr_out infiltr_out output object
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
 #'   Default: "default", it prints in the current working directory
+#' @export
 plot_comparisons = function(
     infiltr_out,
     save_plots = TRUE,

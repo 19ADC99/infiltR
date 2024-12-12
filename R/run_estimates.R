@@ -3,6 +3,8 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for infiltR estimates
 #' @note 2024-12-11
+#' @title run_estimates
+#' @details
 #'
 #' This function runs CIBERSORT, MCP-counter and quanTIseq tools
 #'
@@ -59,6 +61,7 @@
 #'     "default" (a list of genes with noisy expression RNA-seq data is removed,
 #'     as explained in the quanTIseq paper).
 #'   Default: "default" for RNA-seq data, "none" for microarrays.
+#' @export
 run_estimates = function(
     counts_table,
     metadata,

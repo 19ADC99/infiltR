@@ -3,6 +3,10 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note run N permutations to get the null distribution
 #' @note 2024-11-19
+#' @title get_cb_perm
+#' @details
+#'
+#' This function runs N (cb_perm) permutations to get the null distribution.
 #'
 #' @param counts_table A RNAseq counts table, with genes as rows and samples as
 #'   columns. The count table is expected to be already preprocessed (i.e.: lowly
@@ -14,8 +18,7 @@
 #'   Number of permutations to be performed to get a p-value on the estimated
 #'   infiltrating immune cells.
 #'   Default: 500
-#'
-#' run N (cb_perm) permutations to get the null distribution
+#' @export
 get_cb_perm = function(
     counts_table,
     cb_LM22,

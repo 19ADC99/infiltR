@@ -3,6 +3,8 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for p-values positions to be annotated
 #' @note 2024-11-15
+#' @title get_pvalues_positions
+#' @details
 #'
 #' I get the x and y positions and the adj-p-value significance to be annotated
 #' on ggplot boxplots for different cell types across the groups.
@@ -12,6 +14,7 @@
 #' @param long_matrix The long (melted) version of a cell adundance matrix, (e.g.:)
 #'   as obtained from CIBERSORT or MCP-counter
 #' @param ttest A t-test table obtained from rstatix::t_test
+#' @export
 get_pvalues_positions = function(
     long_matrix,
     ttest

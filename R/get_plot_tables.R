@@ -1,8 +1,12 @@
-### Plot infiltR figures -------------------------------------------------------
+### Prep estimates tables for plotting -----------------------------------------
 #'
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for plotting infiltR summary figures
 #' @note 2024-11-13
+#' @title get_plot_tables
+#' @details
+#'
+#' This function prepr estimates tables for plotting
 #'
 #' @param infiltr_out infiltR output object
 #' @param metadata A metadata matrix with samples as rows
@@ -17,6 +21,7 @@
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
 #'   Default: "default", it prints in the current working directory
+#' @export
 get_plot_tables = function(
     infiltr_out
 ){

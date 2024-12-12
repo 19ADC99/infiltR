@@ -3,8 +3,10 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for p-values positions to be annotated
 #' @note 2024-11-22
+#' @title get_boxplots
+#' @details
 #'
-#' I ggenerate boxplots for the main figure.
+#' This function generates boxplots for the main figure.
 #'
 #' @param long_matrix The long (melted) version of a cell adundance matrix, (e.g.:)
 #'   as obtained from CIBERSORT or MCP-counter
@@ -28,6 +30,7 @@
 #' @param cell_type if TRUE, it expects a long_matrix with cell_types and it
 #'   generates a faceted plot, once facet for each cell-type. Stylistic choice
 #'   to make the cell type names readable
+#' @export
 get_boxplots = function(
     long_matrix,
     my_x,

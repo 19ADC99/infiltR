@@ -3,6 +3,8 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for CIBERSORT
 #' @note 2024-11-15
+#' @title run_cibersort
+#' @details
 #'
 #' Retro-engineered from https://www.nature.com/articles/nmeth.3337
 #'
@@ -25,6 +27,7 @@
 #' @param cb_QN CIBERSORT parameter.
 #'   Perform Quantile Normalization on the counts_table.
 #'   Default: FALSE
+#' @export
 run_cibersort = function(
     infiltr_out,
     counts_table,
@@ -38,7 +41,7 @@ run_cibersort = function(
   # retrieve signature matrix
   message("[", as.POSIXct(lubridate::now()), "] ....... retrieve CIBERSORT signature matrix")
   cb_LM22 = read.table(
-    curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/data/cb_LM22.txt"),
+    curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/inst/extdata/cb_LM22.txt"),
     sep = "\t",
     stringsAsFactors = FALSE,
     check.names = FALSE

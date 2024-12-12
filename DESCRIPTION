@@ -1,5 +1,4 @@
 Package: infiltR
-Type: Package
 Title: Toolkit for evaluating infiltrating immune cells in tumor RNA-seq samples.
 Version: 0.1.0
 Authors@R: 
@@ -14,15 +13,25 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Imports: 
+Imports:
+    BiocGenerics,
+    cowplot,
+    dplyr,
+    doSNOW,
     e1071,
-    future,
-    furrr,
-    magrittr,
-    utils,
-    purrr,
+    foreach,
+    ggplot2,
+    ggpmisc,
+    lubridate,
+    MCPcounter,
+    parallel,
+    preprocessCore,
+    quantiseqr,
+    rlang,
+    rstatix,
+    scales,
     stats,
-    preprocessCore
+    stringr,
+    utils
 URL: https://github.com/19ADC99/infiltR
 biocViews: RNASeq, GeneExpression, Transcription, DifferentialExpression, ImmunoOncology
-

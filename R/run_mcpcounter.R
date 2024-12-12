@@ -3,6 +3,10 @@
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for MCP-counter
 #' @note 2024-11-13
+#' @title run_mcpcounter
+#' @details
+#'
+#' This function runs MCP-counter.
 #'
 #' @param infiltr_out infiltR output object
 #' @param counts_table A RNAseq counts table, with genes as rows and samples as
@@ -25,6 +29,7 @@
 #'   The gene set that indicates the genes of the immune infiltrating cells
 #'   Default: "default", which retrieves the original MCP-counter repo with
 #'   \code{read.table(curl:::curl("https://raw.githubusercontent.com/ebecht/MCPcounter/master/Signatures/genes.txt"),sep="\t",stringsAsFactors=FALSE,header=TRUE,colClasses="character",check.names=FALSE}
+#' @export
 run_mcpcounter = function(
     infiltr_out,
     counts_table,
@@ -40,7 +45,7 @@ run_mcpcounter = function(
   if(length(mcp_probesets) == 1){
     if(mcp_probesets == "default"){
       mcp_probesets = read.table(
-        curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/data/mcp_probesets.txt"),
+        curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/inst/extdata/mcp_probesets.txt"),
         sep = "\t",
         stringsAsFactors = FALSE,
         colClasses = "character"
@@ -51,7 +56,7 @@ run_mcpcounter = function(
   if(length(mcp_genes) == 1){
     if(mcp_genes == "default"){
       mcp_genes = read.table(
-        curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/data/mcp_genes.txt"),
+        curl:::curl("https://raw.githubusercontent.com/19ADC99/infiltR/master/inst/extdata/mcp_genes.txt"),
         sep = "\t",
         stringsAsFactors = FALSE,
         header = TRUE,

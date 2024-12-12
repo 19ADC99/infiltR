@@ -1,8 +1,12 @@
-### Run MCP-counter ------------------------------------------------------------
+### Run quanTIseq --------------------------------------------------------------
 #'
 #' @author Andrea Del Cortona <andrea.delcortona@gmail.com>
 #' @note wrapper for MCP-counter
 #' @note 2024-11-13
+#' @title run_quantiseq
+#' @details
+#'
+#' This function runs quanTIseq.
 #'
 #' @param infiltr_out infiltR output object
 #' @param counts_table A RNAseq counts table, with genes as rows and samples as
@@ -33,6 +37,7 @@
 #'     "default" (a list of genes with noisy expression RNA-seq data is removed,
 #'     as explained in the quanTIseq paper).
 #'   Default: "default" for RNA-seq data, "none" for microarrays.
+#' @export
 run_quantiseq = function(
     infiltr_out,
     counts_table,

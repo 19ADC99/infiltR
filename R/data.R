@@ -1,9 +1,19 @@
 #' The gene expression matrix from isolated 22 cells
 #'
 #'
-"LM22"
+# "cb_LM22"
+
+#' The gene expression matrix from isolated 22 cells
+#'
+#'
+# "mcp_genes"
+
+#' The gene expression matrix from isolated 22 cells
+#'
+#'
+# "mcp_probesets"
 
 #' The heterogenous mixed expression matrix
 #'
 #'
-"mixed_expr"
+# "mixed_expr"
