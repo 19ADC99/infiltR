@@ -176,7 +176,7 @@ plot_infiltR = function(
     scale_fill_manual(values = my_palette) +
     scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = 10)) +
     labs(x = "", y = "cell fractions", title = "Relative quantification") +
-    facet_wrap(~ model, nrow = 3, scales = "free_x", strip.position = "right") +
+    facet_wrap(~ model, nrow = 3, scales = "free", strip.position = "right") +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
           legend.position = "none",

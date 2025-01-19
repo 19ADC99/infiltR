@@ -85,6 +85,7 @@ get_boxplots = function(
     my_plot = my_plot +
       scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = 10)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1),
+            axis.title.y = element_blank(),
             legend.position = "none",
             panel.spacing = unit(0, "lines"))
   } else {
