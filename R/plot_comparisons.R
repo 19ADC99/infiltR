@@ -17,6 +17,7 @@
 #' @export
 plot_comparisons = function(
     infiltr_out,
+    cancer_type,
     save_plots = TRUE,
     outdir = "default"
 ){
