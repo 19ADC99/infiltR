@@ -51,6 +51,14 @@ infiltR(
 
 
 
+## Comparisons across methods
+
+cite
+https://www.researchgate.net/figure/Differences-of-immune-cells-using-QUANTISEQ-and-MCPCOUNTER-algorithms-and-overall_fig2_362546982
+https://www.researchgate.net/figure/Comparison-of-CIBERSORT-estimates-and-MCP-counter-scores-for-different-configurations-of_fig1_319558704
+
+
+
 # Acknowledgments
 
 
