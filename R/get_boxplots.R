@@ -10,6 +10,7 @@
 #'
 #' @param long_matrix The long (melted) version of a cell adundance matrix, (e.g.:)
 #'   as obtained from CIBERSORT or MCP-counter
+#' @param ttest A t-test table obtained from rstatix::t_test
 #' @param x feature in the x axis. Used as well to facet wrap if cell_type == TRUE
 #' @param y feature in the y axis
 #' @param fill feature to be used for the fill
@@ -33,6 +34,7 @@
 #' @export
 get_boxplots = function(
     long_matrix,
+    ttest,
     my_x,
     my_y,
     my_fill,
@@ -44,6 +46,9 @@ get_boxplots = function(
     log_y = FALSE,
     cell_type = TRUE
 ){
+
+  # check if there were multiple comparisons
+  adjusted = ifelse("p.adj.signif" %in% colnames(ttest), TRUE, FALSE)
 
   # general plot
   my_plot = ggplot(long_matrix, aes(x = .data[[my_x]], y = .data[[my_y]], fill = .data[[my_fill]])) +
@@ -64,13 +69,11 @@ get_boxplots = function(
 
   # add p-value
   for(k in 1:length(my_annotation)){
+
+    # check if there were multiple comparisons
+    adjusted = ifelse("p.adj.signif" %in% colnames(ttest), TRUE, FALSE)
+
     my_plot = my_plot +
-      ggplot2::annotate(
-        "text",
-        x = mean(c(my_x_min[[k]], my_x_max[[k]])),
-        y = my_y_positions[[k]] + 0.0025,
-        label = my_annotation[[k]]
-      ) +
       ggplot2::annotate(
         "segment",
         x = my_x_min[[k]],
@@ -78,6 +81,29 @@ get_boxplots = function(
         y = my_y_positions[[k]],
         yend = my_y_positions[[k]],
       )
+
+    if(adjusted){
+
+      my_plot = my_plot +
+        ggplot2::annotate(
+          "text",
+          x = mean(c(my_x_min[[k]], my_x_max[[k]])),
+          y = my_y_positions[[k]] + 0.0025,
+          label = my_annotation[[k]]
+        )
+
+    } else {
+
+      my_plot = my_plot +
+        ggplot2::annotate(
+          "text",
+          x = mean(c(my_x_min[[k]], my_x_max[[k]])),
+          y = my_y_positions[[k]]*1.5,
+          label = my_annotation[[k]]
+        )
+
+    }
+
   }
 
   # cell types or group?

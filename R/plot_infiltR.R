@@ -68,6 +68,7 @@ plot_infiltR = function(
 
   p_mcp_abs_all = get_boxplots(
     mcp_absolute_infil,
+    tests_abs,
     "group",
     "all_infiltrating",
     "group",
@@ -98,6 +99,7 @@ plot_infiltR = function(
 
   p_mcp_abs_cells = get_boxplots(
     mcp_absolute_infil,
+    tests_abscell,
     "cell_type",
     "value",
     "group",
