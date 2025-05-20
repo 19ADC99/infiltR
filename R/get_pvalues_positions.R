@@ -28,6 +28,9 @@ get_pvalues_positions = function(
   my_x_max = c()
   my_annotation = c()
 
+  # check if there were multiple comparisons
+  adjusted = ifelse("p.adj.signif" %in% colnames(ttest), TRUE, FALSE)
+
   # absolute VS cell-type p-values
   if("cell_type" %in% colnames(ttest)){
 
@@ -74,10 +77,23 @@ get_pvalues_positions = function(
       my_x_min = c(my_x_min, as.numeric(ttest[k, "xmin"]))
       my_x_max = c(my_x_max, as.numeric(ttest[k, "xmax"]))
 
-      if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
-        my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
+      # add significance level
+      if(adjusted){
+
+        if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
+          my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
+        } else {
+          my_annotation = c(my_annotation, "")
+        }
+
       } else {
-        my_annotation = c(my_annotation, "")
+
+        if(as.character(ttest[k, "p"]) != "ns"){
+          my_annotation = c(my_annotation, as.character(ttest[k, "p"]))
+        } else {
+          my_annotation = c(my_annotation, "")
+        }
+
       }
 
     }
@@ -102,10 +118,24 @@ get_pvalues_positions = function(
       my_y_positions = c(my_y_positions, my_y_val)
       my_x_min = c(my_x_min, as.numeric(ttest[k, "xmin"]))
       my_x_max = c(my_x_max, as.numeric(ttest[k, "xmax"]))
-      if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
-        my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
+
+      # add significance level
+      if(adjusted){
+
+        if(as.character(ttest[k, "p.adj.signif"]) != "ns"){
+          my_annotation = c(my_annotation, as.character(ttest[k, "p.adj.signif"]))
+        } else {
+          my_annotation = c(my_annotation, "")
+        }
+
       } else {
-        my_annotation = c(my_annotation, "")
+
+        if(as.character(ttest[k, "p"]) != "ns"){
+          my_annotation = c(my_annotation, as.character(ttest[k, "p"]))
+        } else {
+          my_annotation = c(my_annotation, "")
+        }
+
       }
 
     }
