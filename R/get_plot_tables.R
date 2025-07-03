@@ -13,11 +13,14 @@
 #' @param sample_groups The columns of the metadata matrix to be used for the
 #'   comparisons between sample groups. E.g.: a column indicating which sample
 #'   was treated and which one not.
+#' @param sample_levels Order of samples groups for plotting.
+#'   Default: "default", groups are plotted in alphabetical order.
 #' @export
 get_plot_tables = function(
     infiltr_out,
     metadata,
-    sample_groups
+    sample_groups,
+    sample_levels
 ){
 
   # declare output obj
@@ -94,7 +97,7 @@ get_plot_tables = function(
   # get significant CIBERSORT samples if not empty
   cb_sign = infiltr_out[["cb_sign"]]
 
-  if(nrow(cb_sign) >= 0){
+  if(nrow(cb_sign) >= 1){
 
     # transform and plot per cell abundances
     cb_sign$Sample = rownames(cb_sign)
@@ -124,7 +127,6 @@ get_plot_tables = function(
 
 
 
-
   #### quanTIseq ####
 
   quantiseq = infiltr_out[["quantiseq"]]
@@ -143,6 +145,14 @@ get_plot_tables = function(
     )
   )
 
+
+
+  # order samples if requested
+  mcp_absolute_infil$group = factor(mcp_absolute_infil$group, levels = sample_levels)
+  mcp_relative_infil$group = factor(mcp_relative_infil$group, levels = sample_levels)
+  cb_all$group = factor(cb_all$group, levels = sample_levels)
+  cb_sign$group = factor(cb_sign$group, levels = sample_levels)
+  quantiseq$group = factor(quantiseq$group, levels = sample_levels)
 
   # add tables
   plot_tables[["mcp_absolute_infil"]] = mcp_absolute_infil

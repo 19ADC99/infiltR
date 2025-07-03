@@ -26,6 +26,8 @@
 #' @param sample_groups The columns of the metadata matrix to be used for the
 #'   comparisons between sample groups. E.g.: a column indicating which sample
 #'   was treated and which one not.
+#' @param sample_levels Order of samples groups for plotting.
+#'   Default: "default", groups are plotted in alphabetical order.
 #' @param my_palette A vector of color to be passed to the ggplot functions. If
 #'   provided by the user, it must be the same length of number of factors in
 #'   sample_groups.
@@ -94,6 +96,8 @@ infiltR = function(
     counts_table,
     metadata,
     sample_groups,
+    sample_levels = "default",
+    reference_samples = "default",
     my_palette = "default",
     plot_stats = TRUE,
     save_plots = TRUE,
@@ -139,7 +143,9 @@ infiltR = function(
     infiltr_out,
     metadata,
     sample_groups,
+    sample_levels,
     my_palette,
+    plot_stats,
     save_plots,
     outdir
   )

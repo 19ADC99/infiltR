@@ -13,6 +13,8 @@
 #' @param sample_groups The columns of the metadata matrix to be used for the
 #'   comparisons between sample groups. E.g.: a column indicating which sample
 #'   was treated and which one not.
+#' @param sample_levels Order of samples groups for plotting.
+#'   Default: "default", groups are plotted in alphabetical order.
 #' @param my_palette A vector of color to be passed to the ggplot functions. If
 #'   provided by the user, it must be the same length of number of factors in
 #'   sample_groups.
@@ -29,8 +31,9 @@ plot_infiltR = function(
     infiltr_out,
     metadata,
     sample_groups,
+    sample_levels,
     my_palette,
-    plot_stats = TRUE,
+    plot_stats,
     save_plots = TRUE,
     outdir = "default"
 ){
@@ -55,7 +58,8 @@ plot_infiltR = function(
   plot_tables = get_plot_tables(
     infiltr_out,
     metadata,
-    sample_groups
+    sample_groups,
+    sample_levels
   )
 
 
@@ -70,6 +74,8 @@ plot_infiltR = function(
 
   my_pvalues = get_pvalues_positions(mcp_absolute_infil$all_infiltrating, tests_abs, n_fact)
 
+  mcp_absolute_infil$group = factor(mcp_absolute_infil$group, levels = sample_levels)
+
   p_mcp_abs_all = get_boxplots(
     mcp_absolute_infil,
     tests_abs,
@@ -81,7 +87,7 @@ plot_infiltR = function(
     my_x_max = my_pvalues[["my_x_max"]],
     my_annotation = my_pvalues[["my_annotation"]],
     my_palette,
-    plot_stats = plot_stats,
+    plot_stats,
     log_y = TRUE,
     cell_type = FALSE
   )
@@ -113,7 +119,7 @@ plot_infiltR = function(
     my_x_max = my_pvalues[["my_x_max"]],
     my_annotation = my_pvalues[["my_annotation"]],
     my_palette,
-    plot_stats = plot_stats,
+    plot_stats,
     log_y = TRUE,
     cell_type = TRUE
   )
