@@ -91,32 +91,37 @@ get_plot_tables = function(
     )
   )
 
+  # get significant CIBERSORT samples if not empty
   cb_sign = infiltr_out[["cb_sign"]]
 
+  if(nrow(cb_sign) >= 0){
 
-  # transfor and plot per cell abundances
-  cb_sign$Sample = rownames(cb_sign)
-  cb_sign$group = metadata %>%
-    dplyr::filter(sample %in% rownames(cb_sign)) %>%
-    dplyr::select(dplyr::all_of(sample_groups)) %>%
-    BiocGenerics::unlist()
-  cb_sign = cb_sign %>%
-    dplyr::select(-c("P-value", "Correlation", "RMSE"))
-  cb_sign = reshape2::melt(cb_sign)
-  colnames(cb_sign) = c("Sample", "group", "cell_type", "value")
+    # transform and plot per cell abundances
+    cb_sign$Sample = rownames(cb_sign)
+    cb_sign$group = metadata %>%
+      dplyr::filter(sample %in% rownames(cb_sign)) %>%
+      dplyr::select(dplyr::all_of(sample_groups)) %>%
+      BiocGenerics::unlist()
+    cb_sign = cb_sign %>%
+      dplyr::select(-c("P-value", "Correlation", "RMSE"))
+    cb_sign = reshape2::melt(cb_sign)
+    colnames(cb_sign) = c("Sample", "group", "cell_type", "value")
 
-  cb_sign$cell_type = factor(
-    cb_sign$cell_type,
-    levels = c(
-      "B cells naive", "B cells memory", "Plasma cells", "T cells CD8",
-      "T cells CD4 naive", "T cells CD4 memory resting", "T cells CD4 memory activated",
-      "T cells follicular helper", "T cells regulatory (Tregs)", "T cells gamma delta",
-      "NK cells resting", "NK cells activated", "Monocytes", "Macrophages M0",
-      "Macrophages M1", "Macrophages M2", "Dendritic cells resting",
-      "Dendritic cells activated", "Mast cells resting", "Mast cells activated",
-      "Eosinophils", "Neutrophils"
+    cb_sign$cell_type = factor(
+      cb_sign$cell_type,
+      levels = c(
+        "B cells naive", "B cells memory", "Plasma cells", "T cells CD8",
+        "T cells CD4 naive", "T cells CD4 memory resting", "T cells CD4 memory activated",
+        "T cells follicular helper", "T cells regulatory (Tregs)", "T cells gamma delta",
+        "NK cells resting", "NK cells activated", "Monocytes", "Macrophages M0",
+        "Macrophages M1", "Macrophages M2", "Dendritic cells resting",
+        "Dendritic cells activated", "Mast cells resting", "Mast cells activated",
+        "Eosinophils", "Neutrophils"
+      )
     )
-  )
+
+  }
+
 
 
 

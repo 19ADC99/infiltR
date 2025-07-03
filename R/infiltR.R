@@ -145,14 +145,18 @@ infiltR = function(
   )
 
   # print QC report
-  message("[", as.POSIXct(lubridate::now()), "] ... Generate CIBERSORT QC figures")
-  plot_cb_qc(
-    infiltr_out,
-    metadata,
-    sample_groups,
-    save_plots,
-    outdir
-  )
+  if(nrow(infiltr_out[["cb_sign"]]) >= 0){
+
+    message("[", as.POSIXct(lubridate::now()), "] ... Generate CIBERSORT QC figures")
+    plot_cb_qc(
+      infiltr_out,
+      metadata,
+      sample_groups,
+      save_plots,
+      outdir
+    )
+
+  }
 
   # print estimates comparisons
   message("[", as.POSIXct(lubridate::now()), "] ... Generate comparisons figures")
