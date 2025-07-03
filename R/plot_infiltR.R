@@ -17,6 +17,9 @@
 #'   provided by the user, it must be the same length of number of factors in
 #'   sample_groups.
 #'   Default: "default", it uses standard ggplot2 palette.
+#' @param plot_stats Boolean to control plotting of p-values brackets above MCP-
+#'   counter absolute quantification violin plots.
+#'   Default: TRUE
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
@@ -27,6 +30,7 @@ plot_infiltR = function(
     metadata,
     sample_groups,
     my_palette,
+    plot_stats = TRUE,
     save_plots = TRUE,
     outdir = "default"
 ){
@@ -35,9 +39,9 @@ plot_infiltR = function(
 
   # get number of metadata groups
   n_fact = metadata[, sample_groups] %>%
-      as.factor() %>%
-      levels() %>%
-      length()
+    as.factor() %>%
+    levels() %>%
+    length()
 
   # check my palette
   if(length(my_palette) == 1){
@@ -77,6 +81,7 @@ plot_infiltR = function(
     my_x_max = my_pvalues[["my_x_max"]],
     my_annotation = my_pvalues[["my_annotation"]],
     my_palette,
+    plot_stats = plot_stats,
     log_y = TRUE,
     cell_type = FALSE
   )
@@ -108,6 +113,7 @@ plot_infiltR = function(
     my_x_max = my_pvalues[["my_x_max"]],
     my_annotation = my_pvalues[["my_annotation"]],
     my_palette,
+    plot_stats = plot_stats,
     log_y = TRUE,
     cell_type = TRUE
   )
@@ -211,3 +217,4 @@ plot_infiltR = function(
 
 
 }
+

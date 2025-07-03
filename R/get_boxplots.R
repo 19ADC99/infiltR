@@ -25,6 +25,9 @@
 #' @param my_palette A vector of color to be passed to the ggplot functions. If
 #'   provided by the user, it must be the same length of number of factors in
 #'   sample_groups.
+#' @param plot_stats Boolean to control plotting of p-values brackets above MCP-
+#'   counter absolute quantification violin plots.
+#'   Default: TRUE
 #' @param log_y y-axis to be plotted as log10. Useful to plot absolute counts (
 #'   i.e.: as from MCP-counter).
 #'   Default: FALSE
@@ -43,6 +46,7 @@ get_boxplots = function(
     my_x_max,
     my_annotation,
     my_palette,
+    plot_stats,
     log_y = FALSE,
     cell_type = TRUE
 ){
@@ -67,44 +71,49 @@ get_boxplots = function(
       scale_y_log10()
   }
 
-  # add p-value
-  for(k in 1:length(my_annotation)){
+  # add p-value if plot_stats == TRUE
+  if(plot_stats){
 
-    # check if there were multiple comparisons
-    adjusted = ifelse("p.adj.signif" %in% colnames(ttest), TRUE, FALSE)
+    for(k in 1:length(my_annotation)){
 
-    my_plot = my_plot +
-      ggplot2::annotate(
-        "segment",
-        x = my_x_min[[k]],
-        xend = my_x_max[[k]],
-        y = my_y_positions[[k]],
-        yend = my_y_positions[[k]],
-      )
-
-    if(adjusted){
+      # check if there were multiple comparisons
+      adjusted = ifelse("p.adj.signif" %in% colnames(ttest), TRUE, FALSE)
 
       my_plot = my_plot +
         ggplot2::annotate(
-          "text",
-          x = mean(c(my_x_min[[k]], my_x_max[[k]])),
-          y = my_y_positions[[k]] + 0.0025,
-          label = my_annotation[[k]]
+          "segment",
+          x = my_x_min[[k]],
+          xend = my_x_max[[k]],
+          y = my_y_positions[[k]],
+          yend = my_y_positions[[k]],
         )
 
-    } else {
+      if(adjusted){
 
-      my_plot = my_plot +
-        ggplot2::annotate(
-          "text",
-          x = mean(c(my_x_min[[k]], my_x_max[[k]])),
-          y = my_y_positions[[k]]*1.5,
-          label = my_annotation[[k]]
-        )
+        my_plot = my_plot +
+          ggplot2::annotate(
+            "text",
+            x = mean(c(my_x_min[[k]], my_x_max[[k]])),
+            y = my_y_positions[[k]] + 0.0025,
+            label = my_annotation[[k]]
+          )
+
+      } else {
+
+        my_plot = my_plot +
+          ggplot2::annotate(
+            "text",
+            x = mean(c(my_x_min[[k]], my_x_max[[k]])),
+            y = my_y_positions[[k]]*1.5,
+            label = my_annotation[[k]]
+          )
+
+      }
 
     }
 
   }
+
 
   # cell types or group?
   if(cell_type == TRUE){
@@ -124,3 +133,8 @@ get_boxplots = function(
   return(my_plot)
 
 }
+
+
+
+
+

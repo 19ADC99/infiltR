@@ -30,6 +30,9 @@
 #'   provided by the user, it must be the same length of number of factors in
 #'   sample_groups.
 #'   Default: "default", it uses standard ggplot2 palette.
+#' @param plot_stats Boolean to control plotting of p-values brackets above MCP-
+#'   counter absolute quantification violin plots.
+#'   Default: TRUE
 #' @param save_plots save plots in pdf and png format
 #'   Default: TRUE
 #' @param outdir Output directory of the plots
@@ -92,6 +95,7 @@ infiltR = function(
     metadata,
     sample_groups,
     my_palette = "default",
+    plot_stats = TRUE,
     save_plots = TRUE,
     outdir = "default",
     mcp_featuresType = "HUGO_symbols",

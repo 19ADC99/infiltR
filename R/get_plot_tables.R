@@ -33,7 +33,7 @@ get_plot_tables = function(
   mcp_absolute_infil$group = metadata[, sample_groups]
   mcp_absolute_infil = mcp_absolute_infil %>%
     dplyr::select(-c("all_infiltrating"))
-  mcp_absolute_infil = data.table::melt(mcp_absolute_infil)
+  mcp_absolute_infil = reshape2::melt(mcp_absolute_infil)
   colnames(mcp_absolute_infil) = c("group", "Sample", "cell_type", "value")
 
   mcp_absolute_infil$cell_type = factor(
@@ -49,7 +49,7 @@ get_plot_tables = function(
   mcp_relative_infil = infiltr_out[["mcp_counter_norm"]]
   mcp_relative_infil$Sample = rownames(mcp_relative_infil)
   mcp_relative_infil$group = metadata[, sample_groups]
-  mcp_relative_infil = data.table::melt(mcp_relative_infil)
+  mcp_relative_infil = reshape2::melt(mcp_relative_infil)
   mcp_relative_infil$value = mcp_relative_infil$value %>%
     as.numeric() %>%
     round(digits = 4)
@@ -75,7 +75,7 @@ get_plot_tables = function(
   cb_all$group = metadata[, sample_groups]
   cb_all = cb_all %>%
     dplyr::select(-c("P-value", "Correlation", "RMSE"))
-  cb_all = data.table::melt(cb_all)
+  cb_all = reshape2::melt(cb_all)
   colnames(cb_all) = c("Sample", "group", "cell_type", "value")
 
   cb_all$cell_type = factor(
@@ -102,7 +102,7 @@ get_plot_tables = function(
     BiocGenerics::unlist()
   cb_sign = cb_sign %>%
     dplyr::select(-c("P-value", "Correlation", "RMSE"))
-  cb_sign = data.table::melt(cb_sign)
+  cb_sign = reshape2::melt(cb_sign)
   colnames(cb_sign) = c("Sample", "group", "cell_type", "value")
 
   cb_sign$cell_type = factor(
@@ -127,7 +127,7 @@ get_plot_tables = function(
   # transfor and plot per cell abundances
   quantiseq$Sample = rownames(quantiseq)
   quantiseq$group = metadata[, sample_groups]
-  quantiseq = data.table::melt(quantiseq)
+  quantiseq = reshape2::melt(quantiseq)
   colnames(quantiseq) = c("Sample", "group", "cell_type", "value")
 
   quantiseq$cell_type = factor(
