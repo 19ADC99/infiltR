@@ -52,7 +52,7 @@ plot_comparisons = function(
   cb_all = cb_all %>%
     dplyr::rename("T.cells.CD8" = "T cells CD8") %>%
     dplyr::select(all_of(cells_to_keep)) %>%
-    data.table::melt()
+    reshape2::melt()
   colnames(cb_all) = c("Sample", "cell_type", "est_cb")
 
   mcp_counter_norm = mcp_counter_norm %>%
@@ -65,7 +65,7 @@ plot_comparisons = function(
       "Dendritic.cells" = "Myeloid dendritic cells"
     ) %>%
     dplyr::select(all_of(cells_to_keep)) %>%
-    data.table::melt()
+    reshape2::melt()
   colnames(mcp_counter_norm) = c("Sample", "cell_type", "est_mcp")
 
   compare_df = mcp_counter_norm
@@ -114,12 +114,12 @@ plot_comparisons = function(
       "Tregs" = "T cells regulatory (Tregs)"
     ) %>%
     dplyr::select(all_of(cells_to_keep)) %>%
-    data.table::melt()
+    reshape2::melt()
   colnames(cb_all) = c("Sample", "cell_type", "est_cb")
 
   quantiseq = quantiseq %>%
     dplyr::select(all_of(cells_to_keep))%>%
-    data.table::melt()
+    reshape2::melt()
   colnames(quantiseq) = c("Sample", "cell_type", "est_quantiseq")
 
   compare_df = cb_all
@@ -161,7 +161,7 @@ plot_comparisons = function(
       "Dendritic.cells" = "Myeloid dendritic cells"
     ) %>%
     dplyr::select(all_of(cells_to_keep)) %>%
-    data.table::melt()
+    reshape2::melt()
   colnames(mcp_counter_norm) = c("Sample", "cell_type", "est_mcp")
 
   quantiseq$T.cells = quantiseq[, "T.cells.CD4"] + quantiseq[, "Tregs"]
@@ -170,7 +170,7 @@ plot_comparisons = function(
     quantiseq[, "Macrophages.M2"]
   quantiseq = quantiseq %>%
     dplyr::select(all_of(cells_to_keep))%>%
-    data.table::melt()
+    reshape2::melt()
   colnames(quantiseq) = c("Sample", "cell_type", "est_quantiseq")
 
   compare_df = mcp_counter_norm
